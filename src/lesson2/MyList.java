@@ -11,9 +11,6 @@ public class MyList<T> {
   private void resize (int new_size)
   {
     Object[] tmp = new Object[new_size];
-//    for (int i = 0; i < list.length; i++) {
-//      tmp[i] = list[i];
-//    }
     tmp = Arrays.copyOf(list, size);
     list = tmp;
   }
@@ -94,6 +91,16 @@ public class MyList<T> {
     }
   }
 
+  // Копирование списка
+  public MyList<T> copy ()
+  {
+    MyList<T> tmp = new MyList<>();
+    for (int i = 0; i < size; i++) {
+      tmp.add((T)list[i]);
+    }
+    return tmp;
+  }
+
   // Поменять 2 элемента списка местами
   public void exchange (int pos1, int pos2)
   {
@@ -103,7 +110,7 @@ public class MyList<T> {
   }
 
   // Сортировка списка вставкой
-  public void sortInsertion(Comparator<T> comp)
+  public void sortInsertion (Comparator<T> comp)
   {
     int j;
 
@@ -115,6 +122,19 @@ public class MyList<T> {
         else break;
         j--;
       }
+    }
+  }
+
+  // Сортировка списка выбором
+  public void sortSelection (Comparator<T> comp)
+  {
+    int min = 0;
+    for (int i = 0; i < size-1; i++) {
+      min = i;
+      for (int j = i+1; j < size; j++) {
+        if (comp.compare((T)list[j], (T)list[i]) < 0) min = j;
+      }
+      exchange(i,min);
     }
   }
 }
