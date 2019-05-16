@@ -17,7 +17,7 @@ public class Program {
   public static double exponentRec (float basis, int degree) {
     if (degree < 0) throw new NoSuchElementException();
     else if (degree == 0) return 1.0;
-    else if (degree == 1) return basis;
+    else if (degree%2 == 0) return exponentRec(basis*basis, degree/2);
     else return exponentRec(basis,degree-1)*basis;
   }
 
